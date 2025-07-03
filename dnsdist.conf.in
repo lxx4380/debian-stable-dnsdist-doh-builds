@@ -18,3 +18,7 @@ newServer({address='[2001:4860:4860::8888]:443', tls='openssl', subjectName='dns
 newServer({address='1.1.1.1:443', tls='openssl', subjectName='1.1.1.1', dohPath='/dns-query', validateCertificates=true, maxInFlight=100, healthCheckMode='lazy', checkInterval=30, lazyHealthCheckFailedInterval=5, rise=3, maxCheckFailures=5, lazyHealthCheckThreshold=6, lazyHealthCheckSampleSize=10,  lazyHealthCheckMinSampleCount=5})
 newServer({address='1.0.0.1:443', tls='openssl', subjectName='1.0.0.1', dohPath='/dns-query', validateCertificates=true, maxInFlight=100, healthCheckMode='lazy', checkInterval=30, lazyHealthCheckFailedInterval=5, rise=3, maxCheckFailures=5, lazyHealthCheckThreshold=6, lazyHealthCheckSampleSize=10,  lazyHealthCheckMinSampleCount=5})
 
+-- Enable packet cache
+pc = newPacketCache(10000, {maxTTL=86400, minTTL=0, temporaryFailureTTL=30, staleTTL=30, dontAge=false})
+getPool(""):setCache(pc)
+
